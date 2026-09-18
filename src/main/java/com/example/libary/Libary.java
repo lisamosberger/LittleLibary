@@ -11,7 +11,8 @@ public class Libary {
     private int loanCounter = 0;
 
     //check if book already exist before adding it with isbn!
-    //add book and find book
+
+
 
 
     public Book findBook (int isbn) {
