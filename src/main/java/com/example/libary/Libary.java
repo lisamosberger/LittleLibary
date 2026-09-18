@@ -39,12 +39,64 @@ public class Libary {
         books[bookCounter] = book;
         bookCounter++;
     }
+    
+    public Member findMember(String username) {
+        for (int i = 0; i < memberCounter; i++) {
+            if (members[i].getUsername().equals(username)) {
+                return members[i];
+            }
+        }
+        return null;
+    }
+    
+    public void addMember(Member member){
+        if (findMember(member.getUsername()) != null){
+            IO.println("Member already exists!");
+        }
+        else if (memberCounter >= members.length){
+            IO.println("There is no more space in the libary for new members.");
+        }
+        members[memberCounter] = member;
+        memberCounter++;
+    }
 
-    // find and add Member
+    public Loan findLoan(Loan loan) {
+        for (int i = 0; i < loanCounter; i++){
 
-    // find and add Loan
+            if (loans[i].getBook().isbn() == loan.getBook().isbn()){
+                return loans[i];
+            }
+        }
+        return null;
+    }
 
-    // return Loan
+    public void addLoan(Loan loan){
+        if (findLoan(loan) != null){
+            IO.println("This Book is already borrowed!");
+        }
+        else if (loanCounter >= loans.length){
+            IO.println("There is no more space in the libary for new loan.");
+        }
+        loans[loanCounter] = loan;
+        loanCounter++;
+    }
+
+   public void returnLoan(Loan loan){
+        if (findLoan(loan) == null){
+            IO.println("This book is not borrowed!");
+        return;
+        }
+        for (int i = 0; i < loanCounter; i++){
+            if (loans[i].getBook().isbn() == loan.getBook().isbn()){
+                for (int j = i; j < bookCounter; j++){
+                loans[j] = loans[j + i];}
+            }
+            loans[loanCounter - 1] = null;
+            loanCounter--;
+            return;
+        }
+   }
+
 
     //show all books (in order)
 
