@@ -4,16 +4,17 @@ public class Member {
 
     private String username;
     private String password;
+    // for later, true if admin rights and false if user rights
     private boolean admin;
 
 
-    public Member(String name, String password, boolean admin) {
-        this.username = name;
+    public Member(String Username, String password, boolean admin) {
+        this.username = Username;
         this.password = password;
         this.admin = admin;
     }
 
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
@@ -23,5 +24,10 @@ public class Member {
 
     public boolean getAdmin() {
         return admin;
+    }
+
+    //Check if password is right
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }
