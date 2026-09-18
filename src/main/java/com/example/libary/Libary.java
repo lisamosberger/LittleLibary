@@ -98,6 +98,36 @@ public class Libary {
    }
 
 
+   public void showAllBooks(Book book){
+        for (int i = 0; i < bookCounter; i++) {
+
+            IO.println("Book " + (i + 1) + ": " + books[i].title() +
+                    "\nISBN: " + books[i].isbn() +
+                    "\n Author: " + books[i].author());
+
+
+            boolean borrowed = false;
+
+            for (int j = 0; j < loanCounter; j++){
+                if (loans[j].getBook().isbn() == book.isbn()){
+                    borrowed = true;
+
+                    IO.println("Status Borrowed by " +
+                            loans[j].getMember().getUsername());
+                    break;
+                }
+            }
+
+            if (!borrowed){
+                IO.println("The Book is Avaiable.");
+            }
+
+            IO.println("========================================================\n");
+        }
+
+   }
+
+
     //show all books (in order)
 
     //find book by isbn
