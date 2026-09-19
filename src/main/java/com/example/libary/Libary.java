@@ -27,7 +27,13 @@ public class Libary {
     }
 
 
-    public void addBook(Book book){
+    public void addBook(){
+
+        int isbn = Integer.parseInt(IO.readln("Enter ISBN: "));
+        String title = IO.readln("Enter Title: ");
+        String author = IO.readln("Enter Author: ");
+
+        Book book = new Book(isbn, title, author);
 
         if (findBook(book.isbn()) != null){
             IO.println("Book already exists!");
@@ -49,7 +55,25 @@ public class Libary {
         return null;
     }
     
-    public void addMember(Member member){
+    public void addMember(){
+
+        String username = IO.readln("Enter Username: ");
+        String password = IO.readln("Enter Password: ");
+        String admin = IO.readln("Are you an admin yes or no (y/n): ");
+        boolean a;
+
+            if (admin.equals("y")){
+                a = true;
+            }
+            else if (admin.equals("n")){
+                a = false;
+            }
+            else {
+                IO.println("Invalid Input.");
+                return;
+            }
+            Member member = new Member(username, password, a);
+
         if (findMember(member.getUsername()) != null){
             IO.println("Member already exists!");
         }

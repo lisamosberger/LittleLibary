@@ -12,6 +12,17 @@ Loan (class) - int memberId, int isbn, String loanDate
 Libary (class) - Book[] books, Member[] members, Loan[] loans
 
 
+First do main purpose functions:
+Bibliotekshanteraren
+====================
+1. Lägg till bok
+2. Registrera medlem
+3. Låna bok
+4. Lämna tillbaka bok
+5. Sök bok (titel eller författare)
+6. Visa alla böcker och status
+e. Avsluta
+
 
 Structure of the Projekt (Try with undermenuer)
 --Menu-- 
