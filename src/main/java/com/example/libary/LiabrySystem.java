@@ -17,6 +17,7 @@ public class LiabrySystem {
                     "\n4. Lämna tillbaka bok" +
                     "\n5. Sök bok" +
                     "\n6. Visa alla böcker och status" +
+                    "\n7. Visa Top Loan member" +
                     "\ne. Avsluta");
 
             switch (IO.readln("Choose an option: ")) {
@@ -26,6 +27,7 @@ public class LiabrySystem {
                 case "4" -> returnBook();
                 case "5" -> findBook();
                 case "6" -> showAllBooks();
+                case "7" -> showAllMembers();
                 case "e" -> System.exit(0);
                 default -> IO.println("Invalid input");
             }
@@ -122,7 +124,10 @@ public class LiabrySystem {
             IO.println("Invalid input");
             return;
         }
-
+        if (libary.findBookByIsbn(isbn) != null) {
+            IO.println("Book already exists");
+            return;
+        }
         String title = IO.readln("Enter Title: ");
         String author = IO.readln("Enter Author: ");
 
@@ -137,6 +142,8 @@ public class LiabrySystem {
     }
 
     static void showAllBooks() {
+
+        libary.sortBooks();
 
         for (int i = 0; i < libary.getBookCounter(); i++) {
 
@@ -228,6 +235,10 @@ public class LiabrySystem {
     static void addMember(){
 
         String username = IO.readln("Enter username: ");
+        if (libary.findMember(username) != null) {
+            IO.println("Member already exists!");
+            return;
+        }
         String password = IO.readln("Enter password: ");
         String admin = IO.readln("Enter y for admin n for user: ");
         Boolean a;
@@ -245,6 +256,29 @@ public class LiabrySystem {
         Member member = new Member(username, password, a);
 
         libary.addMember(member);
+    }
+
+    static void showAllMembers() {
+        libary.sortMembersMostLoans();
+
+        IO.println("Members with most Loans" +
+                "\n==================================");
+        for (int i = 0; i < libary.getMemberCounter(); i++) {
+            Member member = libary.getMember(i);
+            int loanCount = 0;
+
+            for (int j = 0; j < libary.getLoanCounter(); j++) {
+                if (libary.getLoan(j).getMember().equals(member)) {
+                    loanCount++;
+                }
+            }
+            if (loanCount == 0){
+                continue;
+            }
+            IO.println((i + 1) + ". " +
+                    member.getUsername() +
+                    "has this many loans: " + loanCount );
+        }
     }
 
     //put all input and output here, seperate libary from input and output/better structure

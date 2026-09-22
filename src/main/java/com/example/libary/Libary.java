@@ -1,10 +1,9 @@
 package com.example.libary;
 
-import static com.example.libary.LiabrySystem.showAllBooks;
 
 public class Libary {
 
-    Book [] books = new Book[10];
+    private Book [] books = new Book[10];
     private Member [] members = new Member[10];
     private Loan [] loans = new Loan[10];
 
@@ -28,10 +27,13 @@ public class Libary {
         return loanCounter;
     }
 
-    /*
-     Check if it's a number or letter (Character.isDigit)
-     Create a Method for it (checkIfNumber) static!
-     */
+    public Member getMember(int i) {
+        return members[i];
+    }
+    public Loan getLoan(int i) {
+        return loans[i];
+    }
+
 
 
 
@@ -69,6 +71,44 @@ public class Libary {
         return null;
     }
 
+    public void sortBooks() {
+
+        for  (int i = 0; i < bookCounter; i++){
+            for (int j = i + 1; j < bookCounter; j++){
+                if (books[i].title().compareToIgnoreCase(books[j].title()) > 0){
+                    Book temp = books[i];
+                    books[i] = books[j];
+                    books[j] = temp;
+                }
+            }
+        }
+    }
+
+    public void sortMembersMostLoans() {
+        for   (int i = 0; i < memberCounter; i++) {
+            for (int j = 0; j < loanCounter; j++) {
+                int loanCounti = 0;
+                int loanCountj = 0;
+
+                    for (int k = 0; k < loanCounter; k++) {
+                        if (loans[k].getMember().equals(members[i])) {
+                            loanCounti++;}
+                        if (loans[k].getMember().equals(members[j])) {
+                            loanCountj++;
+                        }
+
+                    }
+                if (loanCounti < loanCountj) {
+                    Member temp = members[j];
+                    members[j] = members[i];
+                    members[j] = temp;
+                }
+
+            }
+
+        }
+    }
+
     public boolean addBook(Book book) {
 
 
@@ -95,11 +135,8 @@ public class Libary {
     public void addMember(Member member) {
 
 
-        if (findMember(member.getUsername()) != null){
-            IO.println("Member already exists!");
-            return;
-        }
-        else if (memberCounter >= members.length){
+
+        if (memberCounter >= members.length){
             IO.println("There is no more space in the libary for new members.");
             return;
         }
@@ -166,17 +203,7 @@ public Book getBook(int i){
     return  false;
    }
 
-   //fix your borrowed books print!
-
-   //check if isbn is a number
-
-    //make capitalisation not important anymore (maybe with lowerto or upperto?) - use equalsIgnoreCase
-
-    //show all members (also in order?)
-
-    //Method for showMemberWithMostLoans
-
-    //Change size of possible loans/books/members
+    //Change size of possible loans/books/members (arrays)!!
 
     //Login menu( admin/user)
 
