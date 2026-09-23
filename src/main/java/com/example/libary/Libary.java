@@ -114,9 +114,9 @@ public class Libary {
                 int loanCountj = 0;
 
                     for (int k = 0; k < loanCounter; k++) {
-                        if (loans[k].getMember().equals(members[i])) {
+                        if (loans[k].member().equals(members[i])) {
                             loanCounti++;}
-                        if (loans[k].getMember().equals(members[j])) {
+                        if (loans[k].member().equals(members[j])) {
                             loanCountj++;
                         }
 
@@ -170,7 +170,7 @@ public class Libary {
     public Loan findLoan(Book book) {
         for (int i = 0; i < loanCounter; i++){
 
-            if (loans[i].getBook().isbn() == book.isbn()){
+            if (loans[i].book().isbn() == book.isbn()){
                 return loans[i];
             }
         }
@@ -180,7 +180,7 @@ public class Libary {
     public Loan findLoanByMember(String member) {
 
         for (int i = 0; i < loanCounter; i++){
-            if (member.equalsIgnoreCase(loans[i].getMember().getUsername())){
+            if (member.equalsIgnoreCase(loans[i].member().getUsername())){
                 return loans[i];
             }
         }
@@ -201,14 +201,15 @@ public class Libary {
 
         for (int i = 0; i < loanCounter; i++){
 
-            if (loans[i].getMember().getUsername().equalsIgnoreCase(username) &&
-                   loans[i].getBook().title().equalsIgnoreCase(title)){
-                for (int j = i; j < bookCounter; j++){
+            if (loans[i].member().getUsername().equalsIgnoreCase(username) &&
+                   loans[i].book().title().equalsIgnoreCase(title)){
+                for (int j = i; j < loanCounter; j++){
                 loans[j] = loans[j + i];
                 }
 
                 loans[loanCounter - 1] = null;
                 loanCounter--;
+                return;
             }
 
         }
@@ -221,7 +222,7 @@ public Book getBook(int i){
    public boolean isBorrowed(Book book){
 
        for (int i = 0; i < loanCounter; i++){
-           if (loans[i].getBook().isbn() == books[i].isbn()){
+           if (loans[i].book().isbn() == books[i].isbn()){
              return true;
            }
        }

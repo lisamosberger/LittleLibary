@@ -153,7 +153,7 @@ public class CliApp {
             Loan loan = libary.findLoan(book);
 
             if (loan != null) {
-                IO.println("Borrowed by: " + libary.findLoan(book).getMember().getUsername());
+                IO.println("Borrowed by: " + libary.findLoan(book).member().getUsername());
             } else {
                 IO.println("The Book is available!");
             }
@@ -216,9 +216,9 @@ public class CliApp {
         }
 
         for (int i = 0; i < libary.getLoanCounter(); i++) {
-            IO.println("Loan: " + loanByMember.getBook().isbn() +
-                    "\nTitle: " + loanByMember.getBook().title() +
-                    "\nAuthor: " + loanByMember.getBook().author());
+            IO.println("Loan: " + loanByMember.book().isbn() +
+                    "\nTitle: " + loanByMember.book().title() +
+                    "\nAuthor: " + loanByMember.book().author());
         }
         String title = IO.readln("Which book do you want to return? Name title: ");
 
@@ -268,7 +268,7 @@ public class CliApp {
             int loanCount = 0;
 
             for (int j = 0; j < libary.getLoanCounter(); j++) {
-                if (libary.getLoan(j).getMember().equals(member)) {
+                if (libary.getLoan(j).member().equals(member)) {
                     loanCount++;
                 }
             }
@@ -280,16 +280,6 @@ public class CliApp {
                     "has this many loans: " + loanCount );
         }
     }
-
-    //put all input and output here, seperate libary from input and output/better structure
-
-    /*
-    sort it after:
-    - Menu (Main Menu)
-    - Book (missing: sortAllBooks)
-    - Member (addMember, showAllMember, sortAllMember)
-    - Loan (addLoan, reaturnLoan)
-     */
 
 
 }
