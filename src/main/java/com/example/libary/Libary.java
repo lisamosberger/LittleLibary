@@ -3,9 +3,9 @@ package com.example.libary;
 
 public class Libary {
 
-    private Book [] books = new Book[10];
-    private Member [] members = new Member[10];
-    private Loan [] loans = new Loan[10];
+    private Book [] books = new Book[5];
+    private Member [] members = new Member[5];
+    private Loan [] loans = new Loan[5];
 
     private int bookCounter = 0;
     private int memberCounter = 0;
@@ -227,8 +227,6 @@ public Book getBook(int i){
        }
     return  false;
    }
-
-    //Change size of possible loans/books/members (arrays)!!
 
     //Login menu( admin/user)
 
