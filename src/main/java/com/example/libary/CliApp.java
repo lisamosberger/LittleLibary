@@ -1,6 +1,6 @@
 package com.example.libary;
 
-public class LiabrySystem {
+public class CliApp {
 
     static Libary libary = new Libary();
 
