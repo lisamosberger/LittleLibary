@@ -34,7 +34,30 @@ public class Libary {
         return loans[i];
     }
 
+    private void resizeBooks() {
+        Book[] moreBooks = new Book[books.length *2];
 
+        for (int i = 0; i < books.length; i++) {
+            moreBooks[i] = books[i];
+        }
+        books = moreBooks;
+    }
+
+    private void resizeMembers() {
+        Member[] moreMembers = new Member[members.length *2];
+        for (int i = 0; i < members.length; i++) {
+            moreMembers[i] = members[i];
+        }
+        members = moreMembers;
+    }
+
+    private void resizeLoans() {
+        Loan[] moreLoans = new Loan[loans.length *2];
+        for (int i = 0; i < loans.length; i++) {
+            moreLoans[i] = loans[i];
+        }
+        loans = moreLoans;
+    }
 
 
     public Book findBookByIsbn(int isbn) {
@@ -115,9 +138,10 @@ public class Libary {
         if (findBookByIsbn(book.isbn()) != null){
             return false;
         }
-        if (bookCounter >= books.length){
-            return false;
+        if (bookCounter == books.length){
+            resizeBooks();
         }
+
         books[bookCounter] = book;
         bookCounter++;
         return true;
@@ -136,9 +160,8 @@ public class Libary {
 
 
 
-        if (memberCounter >= members.length){
-            IO.println("There is no more space in the libary for new members.");
-            return;
+        if (memberCounter == members.length){
+            resizeMembers();
         }
         members[memberCounter] = member;
         memberCounter++;
@@ -167,7 +190,9 @@ public class Libary {
 
     public void borrowBook(Loan loan){
 
-
+        if (loanCounter == loans.length){
+            resizeLoans();
+        }
         loans[loanCounter] = loan;
         loanCounter++;
     }
