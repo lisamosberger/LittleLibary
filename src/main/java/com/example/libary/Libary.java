@@ -169,6 +169,21 @@ public class Libary {
         memberCounter++;
     }
 
+    public boolean removeMember(Member member) {
+        for (int i = 0; i < memberCounter; i++) {
+            if (members[i].equals(member)) {
+
+                for  (int j = i; j < memberCounter -1; j++) {
+                    members[j] = members[j + 1];
+                }
+
+                memberCounter--;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Member loggedInMember(String username, String password) {
         for (int i = 0; i < memberCounter; i++) {
             if (members[i].getUsername().equalsIgnoreCase(username) && members[i].getPassword().equals(password)) {

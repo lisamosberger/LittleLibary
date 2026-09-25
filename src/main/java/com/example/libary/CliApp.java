@@ -77,7 +77,7 @@ public class CliApp {
             switch (IO.readln("Choose an option: ")) {
                 case "1" -> addBook();
 //                case "2" -> removeBook();
-//                case "3" -> removeMember();
+                case "3" -> removeMember();
                 case "4" -> borrowBook();
                 case "5" -> returnBook();
 //                case "6" -> LoanList();
@@ -89,6 +89,26 @@ public class CliApp {
 
             IO.readln("Press Enter to continue...");
 
+        }
+    }
+
+    static void removeMember() {
+
+        showAllMembers();
+        String username = IO.readln("Name Member that should be removed: ");
+
+        if (username.equalsIgnoreCase(loggedInMember.getUsername())) {
+            IO.println("You can't delete yourself!");
+            return;
+        }
+
+        if (libary.findMember(username) == null) {
+            IO.println("User " + username + " does not exist!");
+            return;
+        }
+
+        if (libary.removeMember(libary.findMember(username))) {
+            IO.println("User " + username + " has been removed!");
         }
     }
 
