@@ -200,8 +200,7 @@ public class Libary {
         loanCounter++;
     }
 
-   public void returnBook(String username, String title){
-
+   public boolean returnBook(String username, String title){
         for (int i = 0; i < loanCounter; i++){
 
             if (loans[i].member().getUsername().equalsIgnoreCase(username) &&
@@ -212,10 +211,11 @@ public class Libary {
 
                 loans[loanCounter - 1] = null;
                 loanCounter--;
-                return;
+                return true;
             }
 
         }
+        return false;
    }
 
 public Book getBook(int i){

@@ -227,13 +227,16 @@ public class CliApp {
         }
         String title = IO.readln("Which book do you want to return? Name title: ");
 
+        boolean returned = libary.returnBook(username,title);
         if (libary.findBookByTitle(title) == null) {
             IO.println("The book does not exist!");
         }
-
-        libary.returnBook(username, title);
-        IO.println("Book returned successfully!");
-
+        else if (!returned) {
+            IO.println("The book is not borrowed by you!");
+        }
+        else if (returned) {
+            IO.println("Book returned successfully!");
+        }
 
     }
 
