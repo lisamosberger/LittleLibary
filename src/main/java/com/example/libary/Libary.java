@@ -82,6 +82,7 @@ public class Libary {
         return null;
     }
 
+
     public Book findBookByTitle (String title) {
 
 
@@ -161,13 +162,20 @@ public class Libary {
     
     public void addMember(Member member) {
 
-
-
         if (memberCounter == members.length){
             resizeMembers();
         }
         members[memberCounter] = member;
         memberCounter++;
+    }
+
+    public Member loggedInMember(String username, String password) {
+        for (int i = 0; i < memberCounter; i++) {
+            if (members[i].getUsername().equalsIgnoreCase(username) && members[i].getPassword().equals(password)) {
+                return members[i];
+            }
+        }
+        return null;
     }
 
     public Loan findLoan(Book book) {

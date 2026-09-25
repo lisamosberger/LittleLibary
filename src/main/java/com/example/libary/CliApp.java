@@ -3,6 +3,7 @@ package com.example.libary;
 public class CliApp {
 
     static Libary libary = new Libary();
+    static Member loggedInMember = null;
 
     static void main() {
 
@@ -11,23 +12,19 @@ public class CliApp {
 //translate every output to swedish!
             IO.println("\tWelcome to my little liabry!" +
                     "\n=========================================" +
-                    "\n1. Lägg till bok" +
-                    "\n2. Registrera medlem" +
-                    "\n3. Låna bok" +
-                    "\n4. Lämna tillbaka bok" +
-                    "\n5. Sök bok" +
-                    "\n6. Visa alla böcker och status" +
-                    "\n7. Visa Top Loan member" +
+                    "\n1. Sign up" +
+                    "\n2. Log in" +
+                    "\n3. Booklist" +
+                    "\n4. Search for book" +
+                    "\n5. Top Member" +
                     "\ne. Avsluta");
 
             switch (IO.readln("Choose an option: ")) {
-                case "1" -> addBook();
-                case "2" -> addMember();
-                case "3" -> borrowBook();
-                case "4" -> returnBook();
-                case "5" -> findBook();
-                case "6" -> showAllBooks();
-                case "7" -> showAllMembers();
+                case "1" -> addMember();
+                case "2" -> login();
+                case "3" -> showAllBooks();
+                case "4" -> findBook();
+                case "5" -> showAllMembers();
                 case "e" -> System.exit(0);
                 default -> IO.println("Invalid input");
             }
@@ -36,6 +33,63 @@ public class CliApp {
 
         }
 
+    }
+
+    static void userMenu(){
+        while (true) {
+            IO.println("========= USER MENU =========" +
+                    "\n1. Borrow Book" +
+                    "\n2. Return Book" +
+                    "\n3. My Loan" +
+                    "\n4. Search for book" +
+                    "\n5. Top Member" +
+                    "\ne. Log out");
+
+            switch (IO.readln("Choose an option: ")) {
+                case "1" -> borrowBook();
+                case "2" -> returnBook();
+//                case "3" -> LoanList();
+                case "4" -> findBook();
+                case "5" -> showAllMembers();
+                case "e" -> logout();
+                default -> IO.println("Invalid input");
+            }
+
+            IO.readln("Press Enter to continue...");
+
+        }
+    }
+
+    static void adminMenu(){
+
+        while (true) {
+            IO.println("========= ADMIN MENU =========" +
+                    "\n1. Add Book" +
+                    "\n2. Remove Book" +
+                    "\n3. Remove Member" +
+                    "\n4. Borrow Book" +
+                    "\n5. Return Book" +
+                    "\n6. My Loan" +
+                    "\n7. Search for book" +
+                    "\n8. Top Member" +
+                    "\ne. Log out");
+
+            switch (IO.readln("Choose an option: ")) {
+                case "1" -> addBook();
+//                case "2" -> removeBook();
+//                case "3" -> removeMember();
+                case "4" -> borrowBook();
+                case "5" -> returnBook();
+//                case "6" -> LoanList();
+                case "7" -> findBook();
+                case "8" -> showAllMembers();
+                case "e" -> logout();
+                default -> IO.println("Invalid input");
+            }
+
+            IO.readln("Press Enter to continue...");
+
+        }
     }
 
     static void findBook() {
@@ -60,6 +114,33 @@ public class CliApp {
         IO.println("Title: " + book.title() +
                 "\nAuthor: " + book.author() +
                 "\nISBN: " + book.isbn());
+
+    }
+
+    static void logout() {
+        loggedInMember = null;
+        IO.println("You are Logged out");
+        main();
+    }
+
+    static void login() {
+        String username = IO.readln("Enter your Username: ");
+        String password = IO.readln("Enter your Password: ");
+
+
+        if (libary.loggedInMember(username, password) == null) {
+            IO.println("Invalid username or password");
+        }
+        else  {
+            loggedInMember = libary.loggedInMember(username, password);
+            IO.println("You have successfully logged in");
+            if (libary.loggedInMember(username, password).getAdmin()) {
+                adminMenu();
+            }
+            else {
+                userMenu();
+            }
+        }
 
     }
 
