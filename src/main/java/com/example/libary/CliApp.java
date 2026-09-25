@@ -65,6 +65,11 @@ public class CliApp {
 
     static int checkIfNumber(String input) {
 
+        if (input.equals("") || input.length() > 9) {
+            return -1;
+        }
+
+
         for (int i = 0; i < input.length(); i++) {
             if (!Character.isDigit(input.charAt(i))) {
                 return -1;
@@ -265,19 +270,11 @@ public class CliApp {
                 "\n==================================");
         for (int i = 0; i < libary.getMemberCounter(); i++) {
             Member member = libary.getMember(i);
-            int loanCount = 0;
+            int loanCount = libary.getLoanCount(member);
 
-            for (int j = 0; j < libary.getLoanCounter(); j++) {
-                if (libary.getLoan(j).member().equals(member)) {
-                    loanCount++;
-                }
-            }
-            if (loanCount == 0){
-                continue;
-            }
             IO.println((i + 1) + ". " +
                     member.getUsername() +
-                    "has this many loans: " + loanCount );
+                    " has this many loans: " + loanCount );
         }
     }
 

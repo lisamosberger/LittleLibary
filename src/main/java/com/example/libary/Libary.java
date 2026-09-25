@@ -107,29 +107,32 @@ public class Libary {
         }
     }
 
+    public int getLoanCount(Member member) {
+        int loanCount = 0;
+
+        for (int i = 0; i < loanCounter; i++){
+            if (loans[i].member().equals(member)) {
+                loanCount++;
+            }
+        }
+        return loanCount;
+    }
+
     public void sortMembersMostLoans() {
-        for   (int i = 0; i < memberCounter; i++) {
-            for (int j = 0; j < loanCounter; j++) {
-                int loanCounti = 0;
-                int loanCountj = 0;
+        for (int i = 0; i < memberCounter; i++){
+            for (int j = i + 1; j < memberCounter; j++){
 
-                    for (int k = 0; k < loanCounter; k++) {
-                        if (loans[k].member().equals(members[i])) {
-                            loanCounti++;}
-                        if (loans[k].member().equals(members[j])) {
-                            loanCountj++;
-                        }
+                int loanCountI = getLoanCount(members[i]);
+                int loanCountJ = getLoanCount(members[j]);
 
-                    }
-                if (loanCounti < loanCountj) {
-                    Member temp = members[j];
-                    members[j] = members[i];
+                if (loanCountI < loanCountJ){
+                    Member temp = members[i];
+                    members[i] = members[j];
                     members[j] = temp;
                 }
-
             }
-
         }
+
     }
 
     public boolean addBook(Book book) {

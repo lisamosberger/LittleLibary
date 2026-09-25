@@ -65,7 +65,7 @@ Admin (More permissions!)
 4. borrow a book 
 5. give back a book 
 6. member list (all members username and password listet)
-7. Booklist and status 
+7. Booklist and status  
 8. Log out 
 
 
