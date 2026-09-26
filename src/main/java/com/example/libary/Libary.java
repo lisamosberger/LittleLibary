@@ -235,10 +235,10 @@ public class Libary {
         return null;
     }
 
-    public Loan findLoanByMember(String member) {
+    public Loan findLoanByMember(Member member) {
 
         for (int i = 0; i < loanCounter; i++){
-            if (member.equalsIgnoreCase(loans[i].member().getUsername())){
+            if (loans[i].member().equals(member)){
                 return loans[i];
             }
         }
@@ -255,12 +255,12 @@ public class Libary {
         loanCounter++;
     }
 
-   public boolean returnBook(String username, String title){
+   public boolean returnBook(Member member, String title){
         for (int i = 0; i < loanCounter; i++){
 
-            if (loans[i].member().getUsername().equalsIgnoreCase(username) &&
+            if (loans[i].member().getUsername().equalsIgnoreCase(member.getUsername()) &&
                    loans[i].book().title().equalsIgnoreCase(title)){
-                for (int j = i; j < loanCounter; j++){
+                for (int j = i; j < loanCounter - 1; j++){
                 loans[j] = loans[j + i];
                 }
 

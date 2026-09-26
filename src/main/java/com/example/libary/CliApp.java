@@ -298,13 +298,6 @@ public class CliApp {
             return;
         }
 
-        String username = IO.readln("Enter Username: ");
-        Member member = libary.findMember(username);
-
-        if (member == null){
-            IO.println("Member not found!");
-            return;
-        }
 
         if (libary.findLoan(book) != null){
             IO.println("This Book is already borrowed!");
@@ -314,25 +307,16 @@ public class CliApp {
             IO.println("There is no more space in the libary for new loan.");
             return;
         }
-
-        Loan loan = new Loan(book, member);
+        Loan loan = new Loan(book, loggedInMember);
         libary.borrowBook(loan);
         IO.println("You borrowed the book successfully!");
     }
 
     static void returnBook() {
 
-        String username = IO.readln("Enter your username: ");
-
-        if (libary.findMember(username) == null) {
-            IO.println("This user does not exist!");
-            return;
-        }
-
-
         IO.println("Your Loan List:" +
                 "\n============================");
-        Loan loanByMember = libary.findLoanByMember(username);
+        Loan loanByMember = libary.findLoanByMember(loggedInMember);
 
         if (loanByMember == null) {
             IO.println("This user has no Borrowed Books!");
@@ -346,7 +330,8 @@ public class CliApp {
         }
         String title = IO.readln("Which book do you want to return? Name title: ");
 
-        boolean returned = libary.returnBook(username,title);
+        boolean returned = libary.returnBook(loggedInMember,title);
+
         if (libary.findBookByTitle(title) == null) {
             IO.println("The book does not exist!");
         }
