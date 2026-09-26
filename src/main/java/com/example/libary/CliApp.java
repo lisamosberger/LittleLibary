@@ -76,7 +76,7 @@ public class CliApp {
 
             switch (IO.readln("Choose an option: ")) {
                 case "1" -> addBook();
-//                case "2" -> removeBook();
+                case "2" -> removeBook();
                 case "3" -> removeMember();
                 case "4" -> borrowBook();
                 case "5" -> returnBook();
@@ -91,6 +91,24 @@ public class CliApp {
 
         }
     }
+
+    static void removeBook(){
+        showAllBooks();
+        String title = IO.readln("Please enter the title of the book you want to remove: ");
+
+        if (libary.findBookByTitle(title) == null) {
+            IO.println("The Book you are choosing doesn't exist!");
+            return;
+        }
+
+        if (libary.removeBook(libary.findBookByTitle(title))) {
+            IO.println("The Book has been removed!");
+        }
+        else {
+            IO.println("The Book is borrowed and can't be removed!");
+        }
+    }
+
 
     static void removeMember() {
 

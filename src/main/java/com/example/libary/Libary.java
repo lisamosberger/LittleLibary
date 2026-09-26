@@ -169,6 +169,25 @@ public class Libary {
         memberCounter++;
     }
 
+    public boolean removeBook(Book book) {
+
+        if (findLoan(book) != null){
+            return false;
+        }
+        for (int i = 0; i < bookCounter; i++){
+            if (books[i].equals(book)){
+
+                for (int j = i; j < bookCounter - 1; j++){
+                    books[j] = books[j + 1];
+                }
+
+                bookCounter--;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean removeMember(Member member) {
         for (int i = 0; i < memberCounter; i++) {
             if (members[i].equals(member)) {
@@ -178,6 +197,19 @@ public class Libary {
                 }
 
                 memberCounter--;
+
+                for (int j = 0; j < loanCounter; j++) {
+                    if (loans[j].member().equals(member)) {
+
+                        for (int k = j; k < loanCounter - 1; k++) {
+                            loans[k] = loans[k + 1];
+                        }
+
+                        loanCounter--;
+                        j--;
+
+                    }
+                }
                 return true;
             }
         }
