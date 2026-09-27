@@ -24,7 +24,7 @@ The program contains:
 
 All users input get checked to make sure that the entered information exists and the program doesn't crash. Upper and lower case doesn't matter while typing in words as a user. The only 
 time it matters is when typing their password incorrectly. The Menu closes first if they log out and exit. 
-The Book is a record because its information doesnt need to be changed after creation. It contains fixed variables like ISBN, title and author. The same is for the Loan, in the beginning i 
+The Book is a record because its information doesn't need to be changed after creation. It contains fixed variables like ISBN, title and author. The same is for the Loan, in the beginning i 
 had loan as a class but when i realised we don't need to change something directly in loans i changed it to a record because it just needs to hold fixed information. 
 While Members needed to be a class with private fields, because the information about the members could be changed during the program. 
 
@@ -60,9 +60,9 @@ have been necessery to resize the current array because it would happen automati
 Collection Framework made me understand better how arrays work and how to use them properly. 
 
 # Debugging and Testing
-During development i repeatedly testet the program and found new problems, evrytime I fixed something, something new came up. Some errors were easier to notice, while others were harder to find. 
+During development i repeatedly testet the program and found new problems, everytime I fixed something, something new came up. Some errors were easier to notice, while others were harder to find. 
 I created a checkIfNumber method to check if the input is correctly and a good number to use before giving it to the real method. 
 
 # Reflection
 During this projekt i realised i still need to learn a lot, in the beginning i didn't know where to start and i didn't had any structure in my plan. I focused on the whole program at once, but i realised it
-would have been so much easier if i would have focused on one thing at a time. After some time it got more and more structured and i could find everything easier than in the beginning. 
+would have been so much easier if I would have focused on one thing at a time. After some time it got more and more structured and i could find everything easier than in the beginning. 
