@@ -333,7 +333,7 @@ public class CliApp {
             IO.println("Loan: " + loan.book().isbn() +
                     "\nTitle: " + loan.book().title() +
                     "\nAuthor: " + loan.book().author() +
-                    "=====================================");
+                    "\n=====================================");
         }
     }
     static void returnBook() {
