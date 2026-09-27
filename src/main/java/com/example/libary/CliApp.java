@@ -48,7 +48,7 @@ public class CliApp {
             switch (IO.readln("Choose an option: ")) {
                 case "1" -> borrowBook();
                 case "2" -> returnBook();
-//              case "3" -> LoanList();
+                case "3" -> showLoanOfMember();
                 case "4" -> findBook();
                 case "5" -> showAllMembers();
                 case "e" -> logout();
@@ -65,24 +65,26 @@ public class CliApp {
         while (true) {
             IO.println("========= ADMIN MENU =========" +
                     "\n1. Add Book" +
-                    "\n2. Remove Book" +
-                    "\n3. Remove Member" +
-                    "\n4. Borrow Book" +
-                    "\n5. Return Book" +
-                    "\n6. My Loan" +
-                    "\n7. Search for book" +
-                    "\n8. Top Member" +
+                    "\n2. Show all Books" +
+                    "\n3. Remove Book" +
+                    "\n4. Remove Member" +
+                    "\n5. Borrow Book" +
+                    "\n6. Return Book" +
+                    "\n7. My Loan" +
+                    "\n8. Search for book" +
+                    "\n9. Top Member" +
                     "\ne. Log out");
 
             switch (IO.readln("Choose an option: ")) {
                 case "1" -> addBook();
-                case "2" -> removeBook();
-                case "3" -> removeMember();
-                case "4" -> borrowBook();
-                case "5" -> returnBook();
-//                case "6" -> LoanList();
-                case "7" -> findBook();
-                case "8" -> showAllMembers();
+                case "2" -> showAllBooks();
+                case "3" -> removeBook();
+                case "4" -> removeMember();
+                case "5" -> borrowBook();
+                case "6" -> returnBook();
+                case "7" -> showLoanOfMember();
+                case "8" -> findBook();
+                case "9" -> showAllMembers();
                 case "e" -> logout();
                 default -> IO.println("Invalid input");
             }
@@ -219,7 +221,7 @@ public class CliApp {
         Book book = libary.findBookByTitle(title);
 
         if (book == null) {
-            IO.println("Invalid input");
+            IO.println("Couldnt find the Book!");
             return;
         }
 
@@ -312,22 +314,31 @@ public class CliApp {
         IO.println("You borrowed the book successfully!");
     }
 
-    static void returnBook() {
+    static void showLoanOfMember() {
+        IO.println("\tYour loans" +
+                "\n================================");
+        Loan[] loanByMember = libary.getMembersLoanList(loggedInMember);
 
-        IO.println("Your Loan List:" +
-                "\n============================");
-        Loan loanByMember = libary.findLoanByMember(loggedInMember);
-
-        if (loanByMember == null) {
+        if (loanByMember[0] == null) {
             IO.println("This user has no Borrowed Books!");
             return;
         }
 
-        for (int i = 0; i < libary.getLoanCounter(); i++) {
-            IO.println("Loan: " + loanByMember.book().isbn() +
-                    "\nTitle: " + loanByMember.book().title() +
-                    "\nAuthor: " + loanByMember.book().author());
+        for (int i = 0; i < loanByMember.length; i++) {
+            if (loanByMember[i] == null) {
+                break;
+            }
+            Loan loan = loanByMember[i];
+
+            IO.println("Loan: " + loan.book().isbn() +
+                    "\nTitle: " + loan.book().title() +
+                    "\nAuthor: " + loan.book().author());
         }
+    }
+    static void returnBook() {
+
+        showLoanOfMember();
+
         String title = IO.readln("Which book do you want to return? Name title: ");
 
         boolean returned = libary.returnBook(loggedInMember,title);

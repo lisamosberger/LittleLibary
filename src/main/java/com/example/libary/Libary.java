@@ -6,6 +6,7 @@ public class Libary {
     private Book [] books = new Book[5];
     private Member [] members = new Member[5];
     private Loan [] loans = new Loan[5];
+    private Loan [] loansByMember = new Loan[5];
 
     private int bookCounter = 0;
     private int memberCounter = 0;
@@ -30,8 +31,14 @@ public class Libary {
     public Member getMember(int i) {
         return members[i];
     }
-    public Loan getLoan(int i) {
-        return loans[i];
+
+    private void resizeLoansByMember (){
+        Loan [] moreloansByMember = new Loan[loansByMember.length *2];
+
+        for (int i = 0; i < loansByMember.length; i++) {
+            moreloansByMember[i] = loansByMember[i];
+        }
+        loansByMember = moreloansByMember;
     }
 
     private void resizeBooks() {
@@ -235,14 +242,23 @@ public class Libary {
         return null;
     }
 
-    public Loan findLoanByMember(Member member) {
+    public Loan [] getMembersLoanList(Member member) {
+
+        int counter = 0;
 
         for (int i = 0; i < loanCounter; i++){
-            if (loans[i].member().equals(member)){
-                return loans[i];
+
+            if  (loans[i].member().equals(member)){
+                if (i == loansByMember.length){
+                resizeLoansByMember();
             }
+                loansByMember[counter] = loans[i];
+                counter++;
+            }
+
+
         }
-        return null;
+        return loansByMember;
     }
 
 
