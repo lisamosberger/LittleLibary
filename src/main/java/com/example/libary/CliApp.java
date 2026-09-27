@@ -319,7 +319,7 @@ public class CliApp {
                 "\n================================");
         Loan[] loanByMember = libary.getMembersLoanList(loggedInMember);
 
-        if (loanByMember[0] == null) {
+        if (loanByMember.length == 0) {
             IO.println("This user has no Borrowed Books!");
             return;
         }
