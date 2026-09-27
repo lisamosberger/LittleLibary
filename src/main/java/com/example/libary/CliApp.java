@@ -9,7 +9,7 @@ public class CliApp {
 
 
         while (true) {
-//translate every output to swedish!
+
             IO.println("\tWelcome to my little liabry!" +
                     "\n=========================================" +
                     "\n1. Sign up" +
