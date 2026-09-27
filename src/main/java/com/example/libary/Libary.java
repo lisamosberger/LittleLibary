@@ -6,7 +6,6 @@ public class Libary {
     private Book [] books = new Book[5];
     private Member [] members = new Member[5];
     private Loan [] loans = new Loan[5];
-    private Loan [] loansByMember = new Loan[5];
 
     private int bookCounter = 0;
     private int memberCounter = 0;
@@ -30,15 +29,6 @@ public class Libary {
 
     public Member getMember(int i) {
         return members[i];
-    }
-
-    private void resizeLoansByMember (){
-        Loan [] moreloansByMember = new Loan[loansByMember.length *2];
-
-        for (int i = 0; i < loansByMember.length; i++) {
-            moreloansByMember[i] = loansByMember[i];
-        }
-        loansByMember = moreloansByMember;
     }
 
     private void resizeBooks() {
@@ -246,19 +236,23 @@ public class Libary {
 
         int counter = 0;
 
-        for (int i = 0; i < loanCounter; i++){
+        for (int i = 0; i < loanCounter; i++) {
 
-            if  (loans[i].member().equals(member)){
-                if (i == loansByMember.length){
-                resizeLoansByMember();
-            }
-                loansByMember[counter] = loans[i];
+            if (loans[i].member().equals(member)) {
                 counter++;
             }
-
-
         }
-        return loansByMember;
+            Loan [] loansByMember = new Loan[counter];
+
+            counter = 0;
+            for (int j = 0; j < loanCounter; j++){
+                if (loans[j].member().equals(member)){
+                    loansByMember[counter] = loans[j];
+                    counter++;
+                }
+            }
+
+       return loansByMember;
     }
 
 
@@ -277,7 +271,7 @@ public class Libary {
             if (loans[i].member().getUsername().equalsIgnoreCase(member.getUsername()) &&
                    loans[i].book().title().equalsIgnoreCase(title)){
                 for (int j = i; j < loanCounter - 1; j++){
-                loans[j] = loans[j + i];
+                loans[j] = loans[j + 1];
                 }
 
                 loans[loanCounter - 1] = null;

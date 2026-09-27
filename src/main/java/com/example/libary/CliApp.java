@@ -207,7 +207,7 @@ public class CliApp {
         Book book = libary.findBookByIsbn(isbn);
 
         if (book == null) {
-            IO.println("Invalid input");
+            IO.println("Could not find book with ISBN " + isbn);
             return;
         }
 
@@ -221,7 +221,7 @@ public class CliApp {
         Book book = libary.findBookByTitle(title);
 
         if (book == null) {
-            IO.println("Couldnt find the Book!");
+            IO.println("Could not find book with title " + title);
             return;
         }
 
@@ -235,7 +235,7 @@ public class CliApp {
         Book book = libary.findBookByAuthor(author);
 
         if (book == null) {
-            IO.println("Invalid input");
+            IO.println("Could not find book with author " + author + "!");
             return;
         }
 
@@ -315,7 +315,7 @@ public class CliApp {
     }
 
     static void showLoanOfMember() {
-        IO.println("\tYour loans" +
+        IO.println("\t\tYour loans" +
                 "\n================================");
         Loan[] loanByMember = libary.getMembersLoanList(loggedInMember);
 
@@ -332,7 +332,8 @@ public class CliApp {
 
             IO.println("Loan: " + loan.book().isbn() +
                     "\nTitle: " + loan.book().title() +
-                    "\nAuthor: " + loan.book().author());
+                    "\nAuthor: " + loan.book().author() +
+                    "=====================================");
         }
     }
     static void returnBook() {
