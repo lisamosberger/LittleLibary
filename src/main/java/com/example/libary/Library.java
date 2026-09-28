@@ -1,7 +1,7 @@
 package com.example.libary;
 
 
-public class Libary {
+public class Library {
 
     private Book [] books = new Book[5];
     private Member [] members = new Member[5];

@@ -2,7 +2,7 @@ package com.example.libary;
 
 public class CliApp {
 
-    static Libary libary = new Libary();
+    static Library library = new Library();
     static Member loggedInMember = null;
 
     static void main() {
@@ -98,12 +98,12 @@ public class CliApp {
         showAllBooks();
         String title = IO.readln("Please enter the title of the book you want to remove: ");
 
-        if (libary.findBookByTitle(title) == null) {
+        if (library.findBookByTitle(title) == null) {
             IO.println("The Book you are choosing doesn't exist!");
             return;
         }
 
-        if (libary.removeBook(libary.findBookByTitle(title))) {
+        if (library.removeBook(library.findBookByTitle(title))) {
             IO.println("The Book has been removed!");
         }
         else {
@@ -122,12 +122,12 @@ public class CliApp {
             return;
         }
 
-        if (libary.findMember(username) == null) {
+        if (library.findMember(username) == null) {
             IO.println("User " + username + " does not exist!");
             return;
         }
 
-        if (libary.removeMember(libary.findMember(username))) {
+        if (library.removeMember(library.findMember(username))) {
             IO.println("User " + username + " has been removed!");
         }
     }
@@ -168,13 +168,13 @@ public class CliApp {
         String password = IO.readln("Enter your Password: ");
 
 
-        if (libary.loggedInMember(username, password) == null) {
+        if (library.loggedInMember(username, password) == null) {
             IO.println("Invalid username or password");
         }
         else  {
-            loggedInMember = libary.loggedInMember(username, password);
+            loggedInMember = library.loggedInMember(username, password);
             IO.println("You have successfully logged in");
-            if (libary.loggedInMember(username, password).getAdmin()) {
+            if (library.loggedInMember(username, password).getAdmin()) {
                 adminMenu();
             }
             else {
@@ -204,7 +204,7 @@ public class CliApp {
         String input = IO.readln("Enter ISBN: ");
         int isbn = checkIfNumber(input);
 
-        Book book = libary.findBookByIsbn(isbn);
+        Book book = library.findBookByIsbn(isbn);
 
         if (book == null) {
             IO.println("Could not find book with ISBN " + isbn);
@@ -218,7 +218,7 @@ public class CliApp {
     static void findBookByTitle() {
         String title = IO.readln("Enter title: ");
 
-        Book book = libary.findBookByTitle(title);
+        Book book = library.findBookByTitle(title);
 
         if (book == null) {
             IO.println("Could not find book with title " + title);
@@ -232,7 +232,7 @@ public class CliApp {
     static void findBookByAuthor() {
         String author = IO.readln("Enter author: ");
 
-        Book book = libary.findBookByAuthor(author);
+        Book book = library.findBookByAuthor(author);
 
         if (book == null) {
             IO.println("Could not find book with author " + author + "!");
@@ -250,7 +250,7 @@ public class CliApp {
             IO.println("Invalid input");
             return;
         }
-        if (libary.findBookByIsbn(isbn) != null) {
+        if (library.findBookByIsbn(isbn) != null) {
             IO.println("Book already exists");
             return;
         }
@@ -260,7 +260,7 @@ public class CliApp {
 
         Book book = new Book(isbn, title, author);
 
-        if (libary.addBook(book)) {
+        if (library.addBook(book)) {
             IO.println("Book added successfully!");
         } else {
             IO.println("Book could not be added!");
@@ -269,17 +269,17 @@ public class CliApp {
 
     static void showAllBooks() {
 
-        libary.sortBooks();
+        library.sortBooks();
 
-        for (int i = 0; i < libary.getBookCounter(); i++) {
+        for (int i = 0; i < library.getBookCounter(); i++) {
 
-            Book book = libary.getBook(i);
+            Book book = library.getBook(i);
             printBook(book);
 
-            Loan loan = libary.findLoan(book);
+            Loan loan = library.findLoan(book);
 
             if (loan != null) {
-                IO.println("Borrowed by: " + libary.findLoan(book).member().getUsername());
+                IO.println("Borrowed by: " + library.findLoan(book).member().getUsername());
             } else {
                 IO.println("The Book is available!");
             }
@@ -293,7 +293,7 @@ public class CliApp {
         String title = IO.readln("Which book do you want to borrow: "+
                 "Name it by title: ");
 
-        Book book = libary.findBookByTitle(title);
+        Book book = library.findBookByTitle(title);
 
         if (book == null){
             IO.println("Book not found!");
@@ -301,23 +301,23 @@ public class CliApp {
         }
 
 
-        if (libary.findLoan(book) != null){
+        if (library.findLoan(book) != null){
             IO.println("This Book is already borrowed!");
             return;
         }
-        else if (libary.getLoanCounter() >= libary.getLoanLenght()){
-            IO.println("There is no more space in the libary for new loan.");
+        else if (library.getLoanCounter() >= library.getLoanLenght()){
+            IO.println("There is no more space in the library for new loan.");
             return;
         }
         Loan loan = new Loan(book, loggedInMember);
-        libary.borrowBook(loan);
+        library.borrowBook(loan);
         IO.println("You borrowed the book successfully!");
     }
 
     static void showLoanOfMember() {
         IO.println("\t\tYour loans" +
                 "\n================================");
-        Loan[] loanByMember = libary.getMembersLoanList(loggedInMember);
+        Loan[] loanByMember = library.getMembersLoanList(loggedInMember);
 
         if (loanByMember.length == 0) {
             IO.println("This user has no Borrowed Books!");
@@ -342,9 +342,9 @@ public class CliApp {
 
         String title = IO.readln("Which book do you want to return? Name title: ");
 
-        boolean returned = libary.returnBook(loggedInMember,title);
+        boolean returned = library.returnBook(loggedInMember,title);
 
-        if (libary.findBookByTitle(title) == null) {
+        if (library.findBookByTitle(title) == null) {
             IO.println("The book does not exist!");
         }
         else if (!returned) {
@@ -359,7 +359,7 @@ public class CliApp {
     static void addMember(){
 
         String username = IO.readln("Enter username: ");
-        if (libary.findMember(username) != null) {
+        if (library.findMember(username) != null) {
             IO.println("Member already exists!");
             return;
         }
@@ -379,17 +379,17 @@ public class CliApp {
 
         Member member = new Member(username, password, a);
 
-        libary.addMember(member);
+        library.addMember(member);
     }
 
     static void showAllMembers() {
-        libary.sortMembersMostLoans();
+        library.sortMembersMostLoans();
 
         IO.println("Members with most Loans" +
                 "\n==================================");
-        for (int i = 0; i < libary.getMemberCounter(); i++) {
-            Member member = libary.getMember(i);
-            int loanCount = libary.getLoanCount(member);
+        for (int i = 0; i < library.getMemberCounter(); i++) {
+            Member member = library.getMember(i);
+            int loanCount = library.getLoanCount(member);
 
             IO.println((i + 1) + ". " +
                     member.getUsername() +
